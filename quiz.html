@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>고급 일상 영어 어휘 10선 퀴즈</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans KR"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* 3D Flip Card Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        /* Smooth slide-up animation */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.28s ease-out forwards;
+        }
+        /* Pulse animation for correct choice */
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        .animate-pop {
+            animation: pop 0.25s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col items-center justify-start selection:bg-indigo-500 selection:text-white transition-colors duration-200">
+
+    <!-- Main Mobile-First Container -->
+    <div class="w-full max-w-md min-h-screen bg-white dark:bg-slate-900 shadow-xl flex flex-col justify-between relative overflow-x-hidden">
+        
+        <!-- Top Header -->
+        <header class="sticky top-0 z-20 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 px-4 py-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white font-extrabold text-lg shadow-sm">
+                    V
+                </div>
+                <div>
+                    <h1 class="text-base font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">고급 일상 영단어 10선</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">원어민 뉘앙스 업그레이드</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" onclick="toggleDarkMode()" aria-label="테마 변경" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                    <!-- Sun/Moon SVG dynamically updated -->
+                    <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="px-4 pt-3 bg-white dark:bg-slate-900">
+            <div class="grid grid-cols-3 gap-1 p-1 bg-slate-100 dark:bg-slate-800/90 rounded-2xl">
+                <button onclick="switchTab('quiz')" id="tabBtn-quiz" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-sm">
+                    🎯 실전 퀴즈
+                </button>
+                <button onclick="switchTab('cards')" id="tabBtn-cards" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900">
+                    🃏 플래시카드
+                </button>
+                <button onclick="switchTab('list')" id="tabBtn-list" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900">
+                    📖 한눈에 보기
+                </button>
+            </div>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <main class="flex-1 px-4 py-4 flex flex-col">
+
+            <!-- ==================== TAB 1: QUIZ VIEW ==================== -->
+            <section id="view-quiz" class="flex-1 flex flex-col">
+                
+                <!-- 1-A. Quiz Start / Mode Selection Screen -->
+                <div id="quiz-home" class="flex-1 flex flex-col justify-between space-y-5 animate-slide-up">
+                    <div class="space-y-4">
+                        <!-- Hero Banner -->
+                        <div class="p-5 rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800 text-white shadow-lg relative overflow-hidden">
+                            <div class="relative z-10">
+                                <span class="inline-block px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs font-semibold mb-2">
+                                    난이도 상 · 필수 회화 어휘
+                                </span>
+                                <h2 class="text-xl font-extrabold leading-snug mb-1.5">4가지 입체 퀴즈로<br>완벽하게 내 것으로 만드세요!</h2>
+                                <p class="text-xs text-indigo-100 leading-relaxed">
+                                    유의어 매칭, 예문 빈칸, 일상 상황극, 음절 터치 조립까지 다양한 방식으로 실전 감각을 깨워줍니다.
+                                </p>
+                            </div>
+                            <div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-white/10 blur-xl"></div>
+                        </div>
+
+                        <!-- Mode Selection Cards -->
+                        <div class="space-y-2.5">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1">퀴즈 모드 선택</h3>
+
+                            <!-- Recommended 10 Q Mix -->
+                            <button onclick="startQuiz('essential10')" class="w-full p-4 rounded-2xl border-2 border-indigo-500/80 bg-indigo-50/50 dark:bg-indigo-950/30 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 text-left transition flex items-center justify-between group active:scale-[0.99]">
+                                <div class="space-y-1 pr-3">
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-2 py-0.5 text-[11px] font-extrabold rounded-md bg-indigo-600 text-white">추천</span>
+                                        <span class="font-bold text-slate-900 dark:text-white text-base">핵심 종합 모의고사 (10문제)</span>
+                                    </div>
+                                    <p class="text-xs text-slate-600 dark:text-slate-400">10개 단어가 모두 1번씩, 4가지 유형이 골고루 섞여 출제됩니다.</p>
+                                </div>
+                                <span class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 group-hover:translate-x-0.5 transition">
+                                    →
+                                </span>
+                            </button>
+
+                            <!-- Full 20 Q Master -->
+                            <button onclick="startQuiz('master20')" class="w-full p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 hover:border-indigo-400 text-left transition flex items-center justify-between group active:scale-[0.99]">
+                                <div class="space-y-1 pr-3">
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-2 py-0.5 text-[11px] font-bold rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400">심화</span>
+                                        <span class="font-bold text-slate-900 dark:text-white text-base">완전 정복 마스터 (20문제)</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">모든 단어를 다각도(예문+상황+철자)에서 반복 훈련합니다.</p>
+                                </div>
+                                <span class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0">
+                                    →
+                                </span>
+                            </button>
+                        </div>
+
+                        <!-- Category Specific Practice -->
+                        <div class="space-y-2">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1">유형별 집중 연습</h3>
+                            <div class="grid grid-cols-2 gap-2.5">
+                                <button onclick="startQuiz('type_synonym')" class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 hover:border-indigo-400 text-left transition active:scale-[0.98]">
+                                    <div class="text-lg mb-1">🔄</div>
+                                    <div class="font-bold text-sm text-slate-800 dark:text-slate-100">유형 ① 유의어 매칭</div>
+                                    <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">쉬운 영어를 고급 어휘로</div>
+                                </button>
+                                <button onclick="startQuiz('type_blank')" class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 hover:border-indigo-400 text-left transition active:scale-[0.98]">
+                                    <div class="text-lg mb-1">✍️</div>
+                                    <div class="font-bold text-sm text-slate-800 dark:text-slate-100">유형 ② 문맥 빈칸</div>
+                                    <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">실전 예문 빈칸 채우기</div>
+                                </button>
+                                <button onclick="startQuiz('type_scenario')" class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 hover:border-indigo-400 text-left transition active:scale-[0.98]">
+                                    <div class="text-lg mb-1">💬</div>
+                                    <div class="font-bold text-sm text-slate-800 dark:text-slate-100">유형 ③ 일상 상황극</div>
+                                    <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">상황에 딱 맞는 단어 찾기</div>
+                                </button>
+                                <button onclick="startQuiz('type_spell')" class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 hover:border-indigo-400 text-left transition active:scale-[0.98]">
+                                    <div class="text-lg mb-1">🧩</div>
+                                    <div class="font-bold text-sm text-slate-800 dark:text-slate-100">유형 ④ 철자 블록</div>
+                                    <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">음절 터치로 스펠링 완성</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1-B. Active Quiz Play Screen -->
+                <div id="quiz-play" class="hidden flex-1 flex flex-col justify-between space-y-4">
+                    <div class="space-y-4">
+                        <!-- Top Status & Progress Bar -->
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-xs font-bold">
+                                <button onclick="quitQuiz()" class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white flex items-center gap-1 py-1 px-2 -ml-2 rounded-lg">
+                                    ✕ 나가기
+                                </button>
+                                <span id="quizTypeBadge" class="px-2.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300">
+                                    유형 ① 유의어 매칭
+                                </span>
+                                <span id="quizCounter" class="text-slate-600 dark:text-slate-300 font-extrabold">
+                                    1 / 10
+                                </span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div id="quizProgressBar" class="h-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-300" style="width: 10%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Question Card -->
+                        <div id="questionCard" class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/70 space-y-3">
+                            <div id="questionInstruction" class="text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                                다음 쉬운 표현을 대체할 가장 알맞은 고급 어휘는?
+                            </div>
+                            <div id="questionPrompt" class="text-lg font-extrabold text-slate-900 dark:text-white leading-relaxed break-keep">
+                                <!-- Dynamic question prompt -->
+                            </div>
+                            <div id="questionSubHint" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                <!-- Dynamic sub-hint or translation -->
+                            </div>
+                        </div>
+
+                        <!-- Multiple Choice Options Container (For Types 1, 2, 3) -->
+                        <div id="mcqContainer" class="space-y-2.5">
+                            <!-- Dynamically populated buttons -->
+                        </div>
+
+                        <!-- Syllable/Spelling Touch Container (For Type 4) -->
+                        <div id="spellContainer" class="hidden space-y-4">
+                            <!-- Answer Slot Box -->
+                            <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-dashed border-indigo-300 dark:border-indigo-700 min-h-[64px] flex flex-wrap items-center justify-center gap-1.5">
+                                <span id="spellPlaceholder" class="text-xs text-slate-400">아래 알파벳/음절 블록을 순서대로 터치하세요</span>
+                                <div id="spellSelectedSlots" class="flex flex-wrap items-center justify-center gap-1.5"></div>
+                            </div>
+
+                            <!-- Syllable Pool Buttons -->
+                            <div id="spellPool" class="flex flex-wrap items-center justify-center gap-2 py-1">
+                                <!-- Dynamically generated chunk buttons -->
+                            </div>
+
+                            <!-- Action Controls for Spelling -->
+                            <div id="spellActions" class="flex gap-2">
+                                <button onclick="resetSpellChunks()" class="flex-1 py-3 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                                    ↺ 초기화
+                                </button>
+                                <button onclick="submitSpellAnswer()" class="flex-[2] py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-md transition">
+                                    정답 확인
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Instant Feedback & Explanation Box -->
+                        <div id="feedbackBox" class="hidden p-4 rounded-2xl border space-y-2.5 animate-slide-up">
+                            <div class="flex items-center justify-between">
+                                <div id="feedbackTitle" class="font-extrabold text-sm flex items-center gap-1.5">
+                                    <!-- 정답입니다! / 아쉬워요! -->
+                                </div>
+                                <button id="feedbackAudioBtn" class="px-2.5 py-1 rounded-lg bg-white/80 dark:bg-slate-800 text-indigo-600 dark:text-indigo-300 text-xs font-bold flex items-center gap-1 shadow-sm border border-slate-200 dark:border-slate-700">
+                                    🔊 발음 듣기
+                                </button>
+                            </div>
+                            <div id="feedbackWordInfo" class="text-xs font-semibold text-slate-700 dark:text-slate-200"></div>
+                            <div id="feedbackExample" class="p-3 rounded-xl bg-white/75 dark:bg-slate-900/75 text-xs space-y-1 border border-slate-200/60 dark:border-slate-800"></div>
+                            <div id="feedbackTip" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"></div>
+                        </div>
+                    </div>
+
+                    <!-- Next Question Sticky Button -->
+                    <div id="nextBtnContainer" class="hidden pt-2 sticky bottom-3 z-10">
+                        <button onclick="nextQuestion()" id="nextQuestionBtn" class="w-full py-4 rounded-2xl bg-slate-900 dark:bg-indigo-600 hover:bg-slate-800 dark:hover:bg-indigo-500 text-white font-extrabold text-sm shadow-lg transition active:scale-[0.99]">
+                            다음 문제 →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 1-C. Quiz Result Screen -->
+                <div id="quiz-result" class="hidden flex-1 flex flex-col justify-between space-y-5 animate-slide-up">
+                    <div class="space-y-5 text-center pt-4">
+                        <div id="resultEmoji" class="text-5xl">🎉</div>
+                        <div class="space-y-1">
+                            <h2 id="resultHeadline" class="text-2xl font-extrabold text-slate-900 dark:text-white">학습 완료!</h2>
+                            <p id="resultSubtext" class="text-xs text-slate-500 dark:text-slate-400">수고하셨습니다. 결과를 확인해 보세요.</p>
+                        </div>
+
+                        <!-- Score Card -->
+                        <div class="p-6 rounded-3xl bg-gradient-to-br from-slate-50 to-indigo-50/50 dark:from-slate-800 dark:to-slate-800/60 border border-slate-200 dark:border-slate-700 flex items-center justify-around">
+                            <div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">정답률</div>
+                                <div id="resultPercent" class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">90%</div>
+                            </div>
+                            <div class="h-10 w-[1px] bg-slate-200 dark:bg-slate-700"></div>
+                            <div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">맞힌 문제</div>
+                                <div id="resultFraction" class="text-2xl font-extrabold text-slate-800 dark:text-white mt-1">9 / 10</div>
+                            </div>
+                        </div>
+
+                        <!-- Wrong Words Summary List -->
+                        <div id="wrongWordsSection" class="hidden text-left space-y-2.5">
+                            <h3 class="text-xs font-extrabold text-rose-600 dark:text-rose-400 px-1 flex items-center gap-1">
+                                📌 다시 확인해야 할 어휘 (<span id="wrongCountNum">0</span>개)
+                            </h3>
+                            <div id="wrongWordsList" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Actions -->
+                    <div class="space-y-2.5 pt-3">
+                        <button id="retryWrongBtn" onclick="retryWrongQuestions()" class="hidden w-full py-3.5 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm shadow-md transition active:scale-[0.99]">
+                            🔥 틀린 문제만 다시 풀기
+                        </button>
+                        <button onclick="resetToQuizHome()" class="w-full py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md transition active:scale-[0.99]">
+                            다른 퀴즈 모드 선택하기
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== TAB 2: FLASHCARDS VIEW ==================== -->
+            <section id="view-cards" class="hidden flex-1 flex flex-col justify-between space-y-4 animate-slide-up">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400">카드를 터치하면 뜻과 예문이 뒤집힙니다</span>
+                        <span id="cardCounter" class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">1 / 10</span>
+                    </div>
+
+                    <!-- 3D Flip Flashcard -->
+                    <div onclick="flipCurrentCard()" class="perspective-1000 w-full h-80 cursor-pointer select-none">
+                        <div id="flashcardInner" class="w-full h-full relative transform-style-3d">
+                            
+                            <!-- Card Front (English Word + Easy Synonym Hint) -->
+                            <div class="absolute inset-0 w-full h-full backface-hidden rounded-3xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/90 border-2 border-slate-200 dark:border-slate-700 shadow-lg p-6 flex flex-col justify-between items-center text-center">
+                                <div class="w-full flex items-center justify-between">
+                                    <span id="cardNumberBadge" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-xs font-bold text-slate-600 dark:text-slate-300">WORD #1</span>
+                                    <button onclick="event.stopPropagation(); speakCurrentCardWord()" class="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-300 hover:bg-indigo-100 text-xs font-bold flex items-center gap-1">
+                                        🔊 발음
+                                    </button>
+                                </div>
+                                <div class="my-auto space-y-3">
+                                    <h2 id="cardFrontWord" class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Procrastinate</h2>
+                                    <div class="inline-block px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 text-xs font-semibold">
+                                        쉬운 표현: <span id="cardFrontEasy">delay, put off</span>
+                                    </div>
+                                </div>
+                                <div class="text-[11px] font-semibold text-slate-400 flex items-center gap-1">
+                                    <span>👆 터치해서 뜻과 예문 확인하기</span>
+                                </div>
+                            </div>
+
+                            <!-- Card Back (Meaning + Example + Tip) -->
+                            <div class="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-3xl bg-gradient-to-br from-indigo-600 to-violet-700 text-white shadow-lg p-6 flex flex-col justify-between text-left">
+                                <div class="flex items-center justify-between border-b border-white/15 pb-2.5">
+                                    <div>
+                                        <span id="cardBackWord" class="text-lg font-extrabold">Procrastinate</span>
+                                        <p id="cardBackMeaning" class="text-sm font-bold text-amber-300">미루다, 늑장 부리다</p>
+                                    </div>
+                                    <button onclick="event.stopPropagation(); speakCurrentCardSentence()" class="px-2.5 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-bold flex items-center gap-1 shrink-0">
+                                        🔊 예문 듣기
+                                    </button>
+                                </div>
+
+                                <div class="my-auto space-y-2.5 py-2">
+                                    <div class="p-3 rounded-2xl bg-black/20 space-y-1">
+                                        <p id="cardBackEn" class="text-xs sm:text-sm font-semibold leading-relaxed">"I always procrastinate when it comes to cleaning the bathroom."</p>
+                                        <p id="cardBackKo" class="text-xs text-indigo-100">(나는 화장실 청소할 때만 되면 항상 미루게 돼.)</p>
+                                    </div>
+                                    <p id="cardBackTip" class="text-xs text-indigo-100 leading-relaxed">
+                                        💡 <b>Tip:</b> 일상에서 할 일을 딴짓하며 뒤로 미룰 때 가장 정확하고 자연스럽게 쓰이는 단어입니다.
+                                    </p>
+                                </div>
+
+                                <div class="text-[11px] text-center text-indigo-200">
+                                    👆 다시 터치하면 앞면으로 돌아갑니다
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Card Quick Dots -->
+                    <div id="cardDots" class="flex items-center justify-center gap-1.5 py-2">
+                        <!-- 10 dots -->
+                    </div>
+                </div>
+
+                <!-- Prev / Next Controls -->
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button onclick="prevCard()" class="py-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 active:scale-[0.98] transition">
+                        ← 이전 단어
+                    </button>
+                    <button onclick="nextCard()" class="py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 font-bold text-sm text-white shadow-md active:scale-[0.98] transition">
+                        다음 단어 →
+                    </button>
+                </div>
+            </section>
+
+            <!-- ==================== TAB 3: ALL WORDS LIST VIEW ==================== -->
+            <section id="view-list" class="hidden flex-1 flex flex-col space-y-3 animate-slide-up">
+                <div class="flex items-center justify-between px-1">
+                    <p class="text-xs text-slate-500 dark:text-slate-400">스피커 아이콘을 누르면 원어민 발음이 재생됩니다.</p>
+                </div>
+                <div id="vocabFullList" class="space-y-3 pb-4">
+                    <!-- Populated via JS -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="px-4 py-3 text-center text-[11px] text-slate-400 dark:text-slate-600 border-t border-slate-100 dark:border-slate-800/70">
+            일상에서 자주 쓰이는 고급 영어 어휘 10선 · 모바일 학습 앱
+        </footer>
+    </div>
+
+    <script>
+        // ==================== 1. VOCABULARY DATA (10 WORDS) ====================
+        const VOCAB_DATA = [
+            {
+                id: 1,
+                word: "Procrastinate",
+                meaning: "미루다, 늑장 부리다",
+                easy: "delay, put off",
+                exampleEn: "I always procrastinate when it comes to cleaning the bathroom.",
+                exampleBlank: "I always ( _______ ) when it comes to cleaning the bathroom.",
+                exampleKo: "나는 화장실 청소할 때만 되면 항상 미루게 돼.",
+                tip: "일상에서 할 일을 딴짓하며 뒤로 미룰 때 가장 정확하고 자연스럽게 쓰이는 단어입니다.",
+                scenario: "시험 공부나 방 청소를 해야 하는데 괜히 유튜브만 보면서 계속 뒤로 미루고 있을 때 쓰는 단어는?",
+                chunks: ["PRO", "CRAS", "TI", "NATE"]
+            },
+            {
+                id: 2,
+                word: "Spontaneous",
+                meaning: "즉흥적인, 자발적인",
+                easy: "unplanned, sudden",
+                exampleEn: "We didn't plan the road trip at all; it was completely spontaneous.",
+                exampleBlank: "We didn't plan the road trip at all; it was completely ( _______ ).",
+                exampleKo: "우리 그 드라이브 여행 전혀 계획 안 했어. 완전 즉흥적으로 간 거야.",
+                tip: "사람의 성격이나 갑작스러운 번개 모임, 즉흥 여행을 묘사할 때 필수적인 어휘입니다.",
+                scenario: "주말에 아무런 사전 계획 없이 친구들과 갑자기 마음이 맞아 밤바다로 번개 드라이브를 떠났을 때 어울리는 단어는?",
+                chunks: ["SPON", "TA", "NE", "OUS"]
+            },
+            {
+                id: 3,
+                word: "Mundane",
+                meaning: "일상적인, 평범한, 따분한",
+                easy: "ordinary, boring",
+                exampleEn: "Doing laundry and grocery shopping are just mundane parts of adulthood.",
+                exampleBlank: "Doing laundry and grocery shopping are just ( _______ ) parts of adulthood.",
+                exampleKo: "빨래하고 장보는 건 그저 어른으로서 겪는 지루하고 평범한 일상이지.",
+                tip: "매일 반복되는 잡무나 특별할 것 없는 일상을 표현할 때 쓰입니다.",
+                scenario: "빨래 개기, 설거지, 마트 장보기처럼 특별할 것 없이 매일 반복되는 평범한 일상을 묘사할 때 쓰는 단어는?",
+                chunks: ["MUN", "DANE"]
+            },
+            {
+                id: 4,
+                word: "Reluctant",
+                meaning: "꺼리는, 마지못해 하는",
+                easy: "unwilling, hesitant",
+                exampleEn: "He was reluctant to spend that much money on a coffee machine.",
+                exampleBlank: "He was ( _______ ) to spend that much money on a coffee machine.",
+                exampleKo: "그는 커피 머신에 그렇게 많은 돈을 쓰는 걸 꽤 망설였어.",
+                tip: "내키지 않거나 결정을 주저하는 심리 상태를 나타낼 때 적합합니다.",
+                scenario: "마음속으로는 별로 내키지 않아서 선뜻 지갑을 열거나 동의하기를 주저하고 망설일 때 쓰는 형용사는?",
+                chunks: ["RE", "LUC", "TANT"]
+            },
+            {
+                id: 5,
+                word: "Plausible",
+                meaning: "그럴듯한, 타당한",
+                easy: "believable, reasonable",
+                exampleEn: "That sounds like a plausible excuse, but I'm not entirely convinced.",
+                exampleBlank: "That sounds like a ( _______ ) excuse, but I'm not entirely convinced.",
+                exampleKo: "그럴듯한 변명 같긴 한데, 완전히 납득되진 않네.",
+                tip: "상대방의 설명이나 상황 판단이 '말이 된다'고 느껴질 때 씁니다.",
+                scenario: "친구가 지각한 이유를 설명하는데, 완전히 믿기진 않아도 논리적으로 꽤 그럴듯하고 말이 된다고 느낄 때 쓰는 단어는?",
+                chunks: ["PLAU", "SI", "BLE"]
+            },
+            {
+                id: 6,
+                word: "Tedious",
+                meaning: "지루하고 따분한, 진력나는",
+                easy: "repetitive and boring",
+                exampleEn: "Entering all these receipts into the spreadsheet is such a tedious task.",
+                exampleBlank: "Entering all these receipts into the spreadsheet is such a ( _______ ) task.",
+                exampleKo: "이 영수증들을 전부 스프레드시트에 입력하는 건 진짜 지루한 작업이야.",
+                tip: "단순 반복 작업으로 인해 피로감이나 지루함을 느낄 때 'boring' 대신 세련되게 씁니다.",
+                scenario: "수백 장의 영수증 금액을 엑셀에 하나하나 타이핑하는 것처럼 단순 반복이라 진이 빠지고 지루한 작업을 뜻하는 단어는?",
+                chunks: ["TE", "DI", "OUS"]
+            },
+            {
+                id: 7,
+                word: "Lucrative",
+                meaning: "수익성이 좋은, 짭짤한",
+                easy: "profitable, makes good money",
+                exampleEn: "Her freelance design gig turned out to be surprisingly lucrative.",
+                exampleBlank: "Her freelance design gig turned out to be surprisingly ( _______ ).",
+                exampleKo: "그녀의 프리랜서 디자인 부업이 생각보다 꽤 짭짤했어.",
+                tip: "부업, 중고 거래, 아르바이트의 수입이 기대 이상일 때 자주 언급됩니다.",
+                scenario: "가볍게 시작한 주말 프리랜서 부업이나 알바가 생각보다 돈을 아주 잘 벌어들일 때 '수익이 짭짤하다'는 뜻으로 쓰는 단어는?",
+                chunks: ["LU", "CRA", "TIVE"]
+            },
+            {
+                id: 8,
+                word: "Ambiguous",
+                meaning: "애매모호한, 여러 뜻으로 해석되는",
+                easy: "unclear, vague",
+                exampleEn: "His text message was so ambiguous that I had to call him to clarify.",
+                exampleBlank: "His text message was so ( _______ ) that I had to call him to clarify.",
+                exampleKo: "그 사람 문자 메시지가 너무 애매해서 뜻을 확인하려고 전화까지 했잖아.",
+                tip: "말이나 행동, 메시지의 뉘앙스가 불분명할 때 격식과 일상 대화 모두에서 널리 쓰입니다.",
+                scenario: "상대방이 보낸 카톡 답장이 거절인지 승낙인지 도무지 뉘앙스가 불분명하고 애매모호할 때 쓰는 단어는?",
+                chunks: ["AM", "BIG", "U", "OUS"]
+            },
+            {
+                id: 9,
+                word: "Resilient",
+                meaning: "회복력 있는, 회복이 빠른",
+                easy: "tough, bouncing back quickly",
+                exampleEn: "Kids get sick often, but they are remarkably resilient.",
+                exampleBlank: "Kids get sick often, but they are remarkably ( _______ ).",
+                exampleKo: "아이들은 자주 아프긴 하지만, 회복력이 정말 빨라.",
+                tip: "감기나 피로, 실패나 좌절을 겪고도 금방 털고 일어나는 사람을 긍정적으로 묘사할 때 씁니다.",
+                scenario: "독감에 걸리거나 큰 실패를 겪어도 주저앉지 않고 금방 기운을 차려 오뚝이처럼 털고 일어나는 모습을 칭찬하는 단어는?",
+                chunks: ["RE", "SIL", "IENT"]
+            },
+            {
+                id: 10,
+                word: "Compromise",
+                meaning: "타협하다, 절충하다 / 타협안",
+                easy: "meet in the middle",
+                exampleEn: "We couldn't agree on a movie, so we compromised on an action comedy.",
+                exampleBlank: "We couldn't agree on a movie, so we ( _______ ) on an action comedy.",
+                exampleKo: "무슨 영화를 볼지 의견이 안 맞아서 절충안으로 액션 코미디를 골랐어.",
+                tip: "메뉴 결정이나 주말 일정 등 일상적인 의견 조율 상황에서 자주 활용됩니다.",
+                scenario: "나는 액션 영화를 보고 싶고 친구는 코미디를 보고 싶어서, 서로 한 발씩 양보해 '액션 코미디'를 보기로 절충했을 때 쓰는 단어는?",
+                chunks: ["COM", "PRO", "MISE"]
+            }
+        ];
+
+        // ==================== 2. STATE MANAGEMENT ====================
+        let currentTab = 'quiz';
+        let currentCardIndex = 0;
+        let isCardFlipped = false;
+
+        // Quiz State
+        let quizQueue = [];
+        let currentQuizIndex = 0;
+        let score = 0;
+        let wrongQuestions = [];
+        let isAnswered = false;
+
+        // Spelling Type State
+        let currentSpellPool = [];
+        let selectedSpellChunks = [];
+
+        // ==================== 3. INITIALIZATION ====================
+        window.addEventListener('DOMContentLoaded', () => {
+            renderFlashcard();
+            renderFullList();
+        });
+
+        // ==================== 4. SPEECH SYNTHESIS (TTS) ====================
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.92;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function speakCurrentCardWord() {
+            speakText(VOCAB_DATA[currentCardIndex].word);
+        }
+
+        function speakCurrentCardSentence() {
+            speakText(VOCAB_DATA[currentCardIndex].exampleEn);
+        }
+
+        // ==================== 5. TAB NAVIGATION & THEME ====================
+        function switchTab(tab) {
+            currentTab = tab;
+            ['quiz', 'cards', 'list'].forEach(t => {
+                const viewEl = document.getElementById(`view-${t}`);
+                const btnEl = document.getElementById(`tabBtn-${t}`);
+                if (t === tab) {
+                    viewEl.classList.remove('hidden');
+                    btnEl.className = "py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-sm";
+                } else {
+                    viewEl.classList.add('hidden');
+                    btnEl.className = "py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900";
+                }
+            });
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+        }
+
+        // ==================== 6. QUIZ ENGINE ====================
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        function buildQuestionObject(vocabItem, quizType) {
+            // Generate 3 distractors
+            const others = shuffleArray(VOCAB_DATA.filter(v => v.id !== vocabItem.id)).slice(0, 3);
+            const options = shuffleArray([vocabItem, ...others]);
+
+            if (quizType === 'synonym') {
+                return {
+                    vocab: vocabItem,
+                    type: 'synonym',
+                    badge: '유형 ① 유의어 매칭',
+                    instruction: '다음 쉬운 영어 표현을 대체할 수 있는 고급 어휘는?',
+                    prompt: `"${vocabItem.easy}"`,
+                    subHint: `💡 힌트 뜻: ${vocabItem.meaning}`,
+                    options: options
+                };
+            } else if (quizType === 'blank') {
+                return {
+                    vocab: vocabItem,
+                    type: 'blank',
+                    badge: '유형 ② 문맥 빈칸 채우기',
+                    instruction: '예문의 빈칸에 들어갈 가장 자연스러운 단어는?',
+                    prompt: `"${vocabItem.exampleBlank}"`,
+                    subHint: `해석: ${vocabItem.exampleKo}`,
+                    options: options
+                };
+            } else if (quizType === 'scenario') {
+                return {
+                    vocab: vocabItem,
+                    type: 'scenario',
+                    badge: '유형 ③ 일상 상황극 퀴즈',
+                    instruction: '다음 일상 상황에 가장 어울리는 영어 단어는?',
+                    prompt: vocabItem.scenario,
+                    subHint: `쉬운 표현 힌트: ${vocabItem.easy}`,
+                    options: options
+                };
+            } else {
+                // 'spell'
+                return {
+                    vocab: vocabItem,
+                    type: 'spell',
+                    badge: '유형 ④ 철자 블록 조립',
+                    instruction: '뜻과 힌트를 보고 음절 블록을 터치해 단어를 완성하세요!',
+                    prompt: `${vocabItem.meaning}`,
+                    subHint: `쉬운 표현: ${vocabItem.easy} · 첫 글자: ${vocabItem.word[0]}...`,
+                    options: []
+                };
+            }
+        }
+
+        function startQuiz(mode) {
+            const shuffledVocab = shuffleArray(VOCAB_DATA);
+            quizQueue = [];
+
+            if (mode === 'essential10') {
+                const types = ['synonym', 'blank', 'scenario', 'spell'];
+                shuffledVocab.forEach((item, idx) => {
+                    const qType = types[idx % types.length];
+                    quizQueue.push(buildQuestionObject(item, qType));
+                });
+            } else if (mode === 'master20') {
+                const types = ['synonym', 'blank', 'scenario', 'spell'];
+                shuffledVocab.forEach((item, idx) => {
+                    const t1 = types[idx % 4];
+                    const t2 = types[(idx + 2) % 4];
+                    quizQueue.push(buildQuestionObject(item, t1));
+                    quizQueue.push(buildQuestionObject(item, t2));
+                });
+                quizQueue = shuffleArray(quizQueue);
+            } else if (mode === 'type_synonym') {
+                shuffledVocab.forEach(item => quizQueue.push(buildQuestionObject(item, 'synonym')));
+            } else if (mode === 'type_blank') {
+                shuffledVocab.forEach(item => quizQueue.push(buildQuestionObject(item, 'blank')));
+            } else if (mode === 'type_scenario') {
+                shuffledVocab.forEach(item => quizQueue.push(buildQuestionObject(item, 'scenario')));
+            } else if (mode === 'type_spell') {
+                shuffledVocab.forEach(item => quizQueue.push(buildQuestionObject(item, 'spell')));
+            }
+
+            currentQuizIndex = 0;
+            score = 0;
+            wrongQuestions = [];
+
+            document.getElementById('quiz-home').classList.add('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-play').classList.remove('hidden');
+
+            renderCurrentQuestion();
+        }
+
+        function renderCurrentQuestion() {
+            isAnswered = false;
+            const q = quizQueue[currentQuizIndex];
+            const total = quizQueue.length;
+
+            // Update Top Header
+            document.getElementById('quizTypeBadge').textContent = q.badge;
+            document.getElementById('quizCounter').textContent = `${currentQuizIndex + 1} / ${total}`;
+            document.getElementById('quizProgressBar').style.width = `${((currentQuizIndex + 1) / total) * 100}%`;
+
+            // Update Prompt Card
+            document.getElementById('questionInstruction').textContent = q.instruction;
+            document.getElementById('questionPrompt').textContent = q.prompt;
+            document.getElementById('questionSubHint').textContent = q.subHint;
+
+            // Hide Feedback & Next Button
+            document.getElementById('feedbackBox').classList.add('hidden');
+            document.getElementById('nextBtnContainer').classList.add('hidden');
+
+            const mcqContainer = document.getElementById('mcqContainer');
+            const spellContainer = document.getElementById('spellContainer');
+
+            if (q.type === 'spell') {
+                mcqContainer.classList.add('hidden');
+                spellContainer.classList.remove('hidden');
+                document.getElementById('spellActions').classList.remove('hidden');
+                setupSpellQuestion(q.vocab);
+            } else {
+                spellContainer.classList.add('hidden');
+                mcqContainer.classList.remove('hidden');
+                mcqContainer.innerHTML = '';
+
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 hover:border-indigo-400 text-left font-bold text-slate-800 dark:text-slate-100 transition flex items-center justify-between active:scale-[0.99]";
+                    
+                    // Show word (or inflected note if Compromise in blank)
+                    let displayWord = opt.word;
+                    if (q.type === 'blank' && opt.id === 10 && q.vocab.id === 10) {
+                        displayWord = "Compromise (compromised)";
+                    }
+
+                    btn.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-extrabold flex items-center justify-center">${idx + 1}</span>
+                            <span class="text-base">${displayWord}</span>
+                        </div>
+                        <span class="option-status text-sm"></span>
+                    `;
+                    btn.onclick = () => handleMcqSelect(btn, opt.id === q.vocab.id, q);
+                    mcqContainer.appendChild(btn);
+                });
+            }
+        }
+
+        function handleMcqSelect(selectedBtn, isCorrect, q) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const allBtns = document.getElementById('mcqContainer').querySelectorAll('button');
+            allBtns.forEach((btn, idx) => {
+                const opt = q.options[idx];
+                btn.disabled = true;
+                if (opt.id === q.vocab.id) {
+                    btn.className = "w-full p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 text-left font-bold text-emerald-900 dark:text-emerald-200 transition flex items-center justify-between animate-pop";
+                    btn.querySelector('.option-status').textContent = "✅ 정답";
+                } else if (btn === selectedBtn && !isCorrect) {
+                    btn.className = "w-full p-4 rounded-2xl border-2 border-rose-500 bg-rose-50 dark:bg-rose-950/50 text-left font-bold text-rose-900 dark:text-rose-200 transition flex items-center justify-between";
+                    btn.querySelector('.option-status').textContent = "❌ 오답";
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            finalizeAnswer(isCorrect, q);
+        }
+
+        // ==================== 7. SPELLING BLOCK LOGIC (TYPE 4) ====================
+        function setupSpellQuestion(vocab) {
+            // Create shuffled chunks with unique indices
+            currentSpellPool = shuffleArray(vocab.chunks.map((chunk, i) => ({ id: i, text: chunk, used: false })));
+            selectedSpellChunks = [];
+            renderSpellUI();
+        }
+
+        function renderSpellUI() {
+            const placeholder = document.getElementById('spellPlaceholder');
+            const slotsEl = document.getElementById('spellSelectedSlots');
+            const poolEl = document.getElementById('spellPool');
+
+            slotsEl.innerHTML = '';
+            poolEl.innerHTML = '';
+
+            if (selectedSpellChunks.length === 0) {
+                placeholder.classList.remove('hidden');
+            } else {
+                placeholder.classList.add('hidden');
+                selectedSpellChunks.forEach((chunkObj, sIdx) => {
+                    const chip = document.createElement('button');
+                    chip.className = "px-3.5 py-2 rounded-xl bg-indigo-600 text-white font-extrabold text-sm shadow-sm tracking-wide hover:bg-indigo-700 transition";
+                    chip.textContent = chunkObj.text;
+                    chip.onclick = () => {
+                        if (isAnswered) return;
+                        chunkObj.used = false;
+                        selectedSpellChunks.splice(sIdx, 1);
+                        renderSpellUI();
+                    };
+                    slotsEl.appendChild(chip);
+                });
+            }
+
+            currentSpellPool.forEach(chunkObj => {
+                const btn = document.createElement('button');
+                btn.disabled = chunkObj.used || isAnswered;
+                btn.className = chunkObj.used
+                    ? "px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800/40 text-transparent font-extrabold text-sm select-none"
+                    : "px-4 py-2.5 rounded-xl border-2 border-indigo-200 dark:border-indigo-800 bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 font-extrabold text-sm shadow-sm hover:border-indigo-500 active:scale-95 transition";
+                btn.textContent = chunkObj.text;
+                btn.onclick = () => {
+                    if (isAnswered || chunkObj.used) return;
+                    chunkObj.used = true;
+                    selectedSpellChunks.push(chunkObj);
+                    renderSpellUI();
+                };
+                poolEl.appendChild(btn);
+            });
+        }
+
+        function resetSpellChunks() {
+            if (isAnswered) return;
+            currentSpellPool.forEach(c => c.used = false);
+            selectedSpellChunks = [];
+            renderSpellUI();
+        }
+
+        function submitSpellAnswer() {
+            if (isAnswered) return;
+            const q = quizQueue[currentQuizIndex];
+            const userWord = selectedSpellChunks.map(c => c.text).join('').toLowerCase();
+            const targetWord = q.vocab.word.toLowerCase();
+
+            isAnswered = true;
+            document.getElementById('spellActions').classList.add('hidden');
+            const isCorrect = (userWord === targetWord);
+            finalizeAnswer(isCorrect, q);
+        }
+
+        // ==================== 8. FEEDBACK & SCORE TRACKING ====================
+        function finalizeAnswer(isCorrect, q) {
+            if (isCorrect) {
+                score++;
+            } else {
+                wrongQuestions.push(q);
+            }
+
+            // Speak the word automatically for auditory reinforcement
+            speakText(q.vocab.word);
+
+            const box = document.getElementById('feedbackBox');
+            const title = document.getElementById('feedbackTitle');
+            const wordInfo = document.getElementById('feedbackWordInfo');
+            const example = document.getElementById('feedbackExample');
+            const tip = document.getElementById('feedbackTip');
+            const audioBtn = document.getElementById('feedbackAudioBtn');
+
+            box.classList.remove('hidden');
+            if (isCorrect) {
+                box.className = "p-4 rounded-2xl border-2 border-emerald-400/70 bg-emerald-50/70 dark:bg-emerald-950/30 space-y-2.5 animate-slide-up";
+                title.className = "font-extrabold text-sm text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5";
+                title.innerHTML = `🎉 정답입니다!`;
+            } else {
+                box.className = "p-4 rounded-2xl border-2 border-rose-400/70 bg-rose-50/70 dark:bg-rose-950/30 space-y-2.5 animate-slide-up";
+                title.className = "font-extrabold text-sm text-rose-700 dark:text-rose-300 flex items-center gap-1.5";
+                title.innerHTML = `💡 정답은 <span class="underline">${q.vocab.word}</span> 입니다!`;
+            }
+
+            audioBtn.onclick = () => speakText(q.vocab.exampleEn);
+            wordInfo.innerHTML = `<span class="text-sm font-extrabold text-indigo-600 dark:text-indigo-400">${q.vocab.word}</span> · ${q.vocab.meaning} <span class="text-slate-400">(${q.vocab.easy})</span>`;
+            example.innerHTML = `
+                <div class="font-bold text-slate-800 dark:text-slate-100">"${q.vocab.exampleEn}"</div>
+                <div class="text-slate-500 dark:text-slate-400">${q.vocab.exampleKo}</div>
+            `;
+            tip.innerHTML = `<b>활용 Tip:</b> ${q.vocab.tip}`;
+
+            const nextBtnContainer = document.getElementById('nextBtnContainer');
+            const nextBtn = document.getElementById('nextQuestionBtn');
+            nextBtnContainer.classList.remove('hidden');
+            nextBtn.textContent = (currentQuizIndex + 1 === quizQueue.length) ? '결과 확인하기 🎯' : '다음 문제 →';
+        }
+
+        function nextQuestion() {
+            if (currentQuizIndex + 1 < quizQueue.length) {
+                currentQuizIndex++;
+                renderCurrentQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quiz-play').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+
+            const total = quizQueue.length;
+            const percent = Math.round((score / total) * 100);
+
+            document.getElementById('resultPercent').textContent = `${percent}%`;
+            document.getElementById('resultFraction').textContent = `${score} / ${total}`;
+
+            const emojiEl = document.getElementById('resultEmoji');
+            const headlineEl = document.getElementById('resultHeadline');
+            const subtextEl = document.getElementById('resultSubtext');
+
+            if (percent === 100) {
+                emojiEl.textContent = '🏆';
+                headlineEl.textContent = '완벽 그 자체! 100점!';
+                subtextEl.textContent = '고급 어휘 10선을 완벽하게 마스터하셨습니다!';
+            } else if (percent >= 80) {
+                emojiEl.textContent = '🎉';
+                headlineEl.textContent = '훌륭한 실력이에요!';
+                subtextEl.textContent = '틀린 단어만 가볍게 복습하면 완벽해집니다.';
+            } else {
+                emojiEl.textContent = '💪';
+                headlineEl.textContent = '좋은 시작이에요!';
+                subtextEl.textContent = '오답 노트를 확인하고 다시 한번 도전해 보세요!';
+            }
+
+            const wrongSection = document.getElementById('wrongWordsSection');
+            const wrongList = document.getElementById('wrongWordsList');
+            const retryWrongBtn = document.getElementById('retryWrongBtn');
+
+            if (wrongQuestions.length > 0) {
+                // Deduplicate wrong vocab items for display
+                const uniqueWrongVocab = [];
+                const seenIds = new Set();
+                wrongQuestions.forEach(wq => {
+                    if (!seenIds.has(wq.vocab.id)) {
+                        seenIds.add(wq.vocab.id);
+                        uniqueWrongVocab.push(wq.vocab);
+                    }
+                });
+
+                document.getElementById('wrongCountNum').textContent = uniqueWrongVocab.length;
+                wrongSection.classList.remove('hidden');
+                retryWrongBtn.classList.remove('hidden');
+                wrongList.innerHTML = '';
+
+                uniqueWrongVocab.forEach(v => {
+                    const item = document.createElement('div');
+                    item.className = "p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-between";
+                    item.innerHTML = `
+                        <div>
+                            <div class="font-extrabold text-sm text-slate-900 dark:text-white">${v.word} <span class="text-xs font-normal text-slate-400">(${v.easy})</span></div>
+                            <div class="text-xs text-rose-600 dark:text-rose-400 font-semibold">${v.meaning}</div>
+                        </div>
+                        <button onclick="speakText('${v.word}')" class="p-2 rounded-xl bg-white dark:bg-slate-700 text-xs shadow-sm">🔊</button>
+                    `;
+                    wrongList.appendChild(item);
+                });
+            } else {
+                wrongSection.classList.add('hidden');
+                retryWrongBtn.classList.add('hidden');
+            }
+        }
+
+        function retryWrongQuestions() {
+            quizQueue = shuffleArray([...wrongQuestions]);
+            currentQuizIndex = 0;
+            score = 0;
+            wrongQuestions = [];
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-play').classList.remove('hidden');
+            renderCurrentQuestion();
+        }
+
+        function quitQuiz() {
+            resetToQuizHome();
+        }
+
+        function resetToQuizHome() {
+            document.getElementById('quiz-play').classList.add('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-home').classList.remove('hidden');
+        }
+
+        // ==================== 9. FLASHCARD LOGIC ====================
+        function renderFlashcard() {
+            const item = VOCAB_DATA[currentCardIndex];
+            isCardFlipped = false;
+            document.getElementById('flashcardInner').classList.remove('rotate-y-180');
+
+            document.getElementById('cardCounter').textContent = `${currentCardIndex + 1} / ${VOCAB_DATA.length}`;
+            document.getElementById('cardNumberBadge').textContent = `WORD #${item.id}`;
+            document.getElementById('cardFrontWord').textContent = item.word;
+            document.getElementById('cardFrontEasy').textContent = item.easy;
+
+            document.getElementById('cardBackWord').textContent = item.word;
+            document.getElementById('cardBackMeaning').textContent = item.meaning;
+            document.getElementById('cardBackEn').textContent = `"${item.exampleEn}"`;
+            document.getElementById('cardBackKo').textContent = `(${item.exampleKo})`;
+            document.getElementById('cardBackTip').innerHTML = `💡 <b>Tip:</b> ${item.tip}`;
+
+            // Render dots
+            const dotsEl = document.getElementById('cardDots');
+            dotsEl.innerHTML = '';
+            VOCAB_DATA.forEach((_, idx) => {
+                const dot = document.createElement('button');
+                dot.className = idx === currentCardIndex
+                    ? "w-6 h-2 rounded-full bg-indigo-600 transition-all"
+                    : "w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700";
+                dot.onclick = () => {
+                    currentCardIndex = idx;
+                    renderFlashcard();
+                };
+                dotsEl.appendChild(dot);
+            });
+        }
+
+        function flipCurrentCard() {
+            isCardFlipped = !isCardFlipped;
+            const inner = document.getElementById('flashcardInner');
+            if (isCardFlipped) {
+                inner.classList.add('rotate-y-180');
+            } else {
+                inner.classList.remove('rotate-y-180');
+            }
+        }
+
+        function prevCard() {
+            currentCardIndex = (currentCardIndex - 1 + VOCAB_DATA.length) % VOCAB_DATA.length;
+            renderFlashcard();
+        }
+
+        function nextCard() {
+            currentCardIndex = (currentCardIndex + 1) % VOCAB_DATA.length;
+            renderFlashcard();
+        }
+
+        // ==================== 10. FULL LIST VIEW ====================
+        function renderFullList() {
+            const container = document.getElementById('vocabFullList');
+            container.innerHTML = '';
+
+            VOCAB_DATA.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 space-y-2";
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-extrabold px-2 py-0.5 rounded-md bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300">#${item.id}</span>
+                                <h3 class="text-base font-extrabold text-slate-900 dark:text-white">${item.word}</h3>
+                            </div>
+                            <p class="text-xs font-bold text-indigo-600 dark:text-indigo-400 mt-1">${item.meaning} <span class="font-normal text-slate-500 dark:text-slate-400">· 쉬운 표현: ${item.easy}</span></p>
+                        </div>
+                        <button onclick="speakText('${item.word}')" class="p-2 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 shadow-sm text-xs font-bold hover:bg-indigo-50 transition">
+                            🔊 발음
+                        </button>
+                    </div>
+                    <div class="p-3 rounded-xl bg-white dark:bg-slate-900/70 text-xs space-y-1 border border-slate-200/50 dark:border-slate-800">
+                        <p class="font-semibold text-slate-800 dark:text-slate-200">"${item.exampleEn}"</p>
+                        <p class="text-slate-500 dark:text-slate-400">(${item.exampleKo})</p>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">💡 <b>Tip:</b> ${item.tip}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
